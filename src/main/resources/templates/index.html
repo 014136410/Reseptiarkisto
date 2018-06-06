@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Huonekalut</title>
+    </head>
+
+    <body>
+        <h1>Huonekalut</h1>
+
+        <p>
+            Huonekalut nuo hienoja ovat, voi veljet, onpa ne somat.
+        </p>
+
+        <ul>
+            <li th:each="arvo : ${lista}">
+                <span th:text="${arvo.nimi}">
+                    nimi
+                </span>
+
+                <form th:action="@{~/delete/{id}(id=${arvo.id})}" method="POST">
+                    <input type="submit" value="Poista"/>
+                </form>
+            </li>
+        </ul>
+
+        <form action="/create" method="POST">
+            <input type="text" name="huonekalu"/>
+            <input type="submit"/>
+        </form>
+
+    </body>
+
+</html>
