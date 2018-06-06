@@ -20,7 +20,7 @@ public class Main {
         
         System.out.println("Hello world!");
 
-        Spark.get("*", (req, res) -> {
+        Spark.get("/", (req, res) -> {
 
             List<Huonekalu> huonekalut = new ArrayList<>();
 
