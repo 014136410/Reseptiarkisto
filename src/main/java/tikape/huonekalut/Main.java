@@ -46,7 +46,7 @@ public class Main {
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
 
-        Spark.post("/create", (req, res) -> {
+        Spark.post("/add", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
                     = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
