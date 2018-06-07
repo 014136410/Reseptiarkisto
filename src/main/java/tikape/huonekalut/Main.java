@@ -88,7 +88,7 @@ public class Main {
     }
     
     public static Connection getConnection() throws Exception {
-        String dbUrl = System.getenv("JDBC_DATABASE_URL");
+        String dbUrl = System.getenv("glacial-oasis-59643::DATABASE");
         if (dbUrl != null && dbUrl.length() > 0) {
             return DriverManager.getConnection(dbUrl);
         }
