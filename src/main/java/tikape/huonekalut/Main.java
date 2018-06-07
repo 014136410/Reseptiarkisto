@@ -88,12 +88,14 @@ public class Main {
     }
     
     public static Connection getConnection() throws Exception {
-        String dbUrl = System.getenv("glacial-oasis-59643::DATABASE");
+        String dbUrl = System.getenv("jdbc:postgresql:/");
         if (dbUrl != null && dbUrl.length() > 0) {
             return DriverManager.getConnection(dbUrl);
         }
+        
+        System.out.println("Connected to the PostgreSQL server successfully.");
 
-        return DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+        return DriverManager.getConnection("jdbc:postgresql:/");
     }
     
 
