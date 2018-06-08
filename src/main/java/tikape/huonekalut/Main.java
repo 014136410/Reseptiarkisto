@@ -35,6 +35,7 @@ public class Main {
             // käsittele kyselyn tulokset
             while (tulos.next()) {
                 huonekalut.add(new Huonekalu(tulos.getInt("id"), tulos.getString("nimi")));
+                System.out.println(tulos.getString("nimi"));
             }
             // sulje yhteys tietokantaan
             conn.close();
@@ -53,10 +54,11 @@ public class Main {
 
             // tee kysely
             PreparedStatement stmt
-                    = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES ");
+                    = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES ?");
             stmt.setString(1, req.queryParams("huonekalu"));
 
             stmt.executeUpdate();
+            System.out.println("Lisätty!");
 
             // sulje yhteys tietokantaan
             conn.close();
@@ -78,6 +80,7 @@ public class Main {
             stmt.setInt(1, Integer.parseInt(kysely));
 
             stmt.executeUpdate();
+            System.out.println("Poistettu!");
 
             // sulje yhteys tietokantaan
             conn.close();
