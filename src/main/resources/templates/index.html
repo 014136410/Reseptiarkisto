@@ -18,7 +18,7 @@
                 <span th:text="${arvo.id}">id</span>
                 <span th:text="${arvo.nimi}">nimi</span>
 
-                <form th:action="@{~)/delete/{arvoID}(arvoID=${arvo.id})}" method="POST">><input type="submit" value="Poista"/>
+                <form th:action="@{/delete/{arvoID}(arvoID=${arvo.id})}" method="POST">><input type="submit" value="Poista"/>
                 </form>
             </li>
         </ul>
