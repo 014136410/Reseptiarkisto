@@ -26,7 +26,7 @@ public class Main {
 
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("HEROKU_POSTGRESQL_PINK_URL");
             // tee kysely
             PreparedStatement stmt
                     = conn.prepareStatement("SELECT id, nimi FROM Huonekalu");
@@ -50,7 +50,7 @@ public class Main {
         Spark.post("/add", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("HEROKU_POSTGRESQL_PINK_URL");
 
             // tee kysely
             PreparedStatement stmt
@@ -70,7 +70,7 @@ public class Main {
         Spark.post("/delete/:id", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("HEROKU_POSTGRESQL_PINK_URL");
 
             // tee kysely
             String kysely = req.params(":id");
