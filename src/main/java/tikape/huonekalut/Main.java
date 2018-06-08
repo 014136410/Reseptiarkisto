@@ -26,7 +26,7 @@ public class Main {
 
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
+                    = DriverManager.getConnection("jdbc:postgresql://localhost:5432");
             // tee kysely
             PreparedStatement stmt
                     = conn.prepareStatement("SELECT id, nimi FROM Huonekalu");
@@ -49,7 +49,7 @@ public class Main {
         Spark.post("/add", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
+                    = DriverManager.getConnection("jdbc:postgresql://localhost:5432");
 
             // tee kysely
             PreparedStatement stmt
@@ -68,7 +68,7 @@ public class Main {
         Spark.post("/delete/:id", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
+                    = DriverManager.getConnection("jdbc:postgresql://localhost:5432");
 
             // tee kysely
             String kysely = req.params(":id");
