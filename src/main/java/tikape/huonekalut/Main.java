@@ -26,7 +26,7 @@ public class Main {
 
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
             // tee kysely
             PreparedStatement stmt
                     = conn.prepareStatement("SELECT id, nimi FROM Huonekalu");
@@ -49,7 +49,7 @@ public class Main {
         Spark.post("/add", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
 
             // tee kysely
             PreparedStatement stmt
@@ -68,7 +68,7 @@ public class Main {
         Spark.post("/delete/:id", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
 
             // tee kysely
             String kysely = req.params(":id");
@@ -88,15 +88,14 @@ public class Main {
     }
     
     public static Connection getConnection() throws Exception {
-        String dbUrl = System.getenv("jdbc:postgresql:/");
+        String dbUrl = System.getenv("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
         if (dbUrl != null && dbUrl.length() > 0) {
             return DriverManager.getConnection(dbUrl);
         }
         
         System.out.println("Connected to the PostgreSQL server successfully.");
 
-        return DriverManager.getConnection("jdbc:postgresql:/");
+        return DriverManager.getConnection("jdbc:postgresql://ec2-54-204-2-26.compute-1-amazonaws.com:5432/d5ge2hca33u9ha");
     }
-    
 
 }
