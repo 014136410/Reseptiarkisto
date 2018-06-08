@@ -54,7 +54,7 @@ public class Main {
 
             // tee kysely
             PreparedStatement stmt
-                    = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES ?");
+                    = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES (?)");
             stmt.setString(1, req.queryParams("huonekalu"));
 
             stmt.executeUpdate();
