@@ -77,7 +77,7 @@ public class Main {
             
             PreparedStatement stmt
             = conn.prepareStatement("DELETE FROM Huonekalu WHERE id = " + kysely + "");
-            stmt.setInt(1, Integer.parseInt(kysely));
+//////            stmt.setInt(1, Integer.parseInt(kysely));
 
             stmt.executeUpdate();
             System.out.println("Poistettu!");
