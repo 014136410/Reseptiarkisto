@@ -1,4 +1,4 @@
-package omasovellus;
+package Reseptiarkisto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
