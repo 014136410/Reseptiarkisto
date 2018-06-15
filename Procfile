@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* tikape.huonekalut.Main
+web:    java -cp target/classes:target/dependency/* omaSovellus.Main

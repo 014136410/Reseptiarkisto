@@ -1,11 +1,11 @@
-package tikape.huonekalut;
+package omasovellus;
 
-public class Huonekalu {
+public class Ainesosa {
 
     int id;
     String nimi;
 
-    public Huonekalu(int id, String nimi) {
+    public Ainesosa(int id, String nimi) {
         this.id = id;
         this.nimi = nimi;
     }

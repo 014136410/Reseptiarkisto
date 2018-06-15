@@ -1,4 +1,4 @@
-package tikape.huonekalut;
+package omasovellus;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,19 +22,19 @@ public class Main {
 
         Spark.get("/", (req, res) -> {
 
-            List<Huonekalu> huonekalut = new ArrayList<>();
+            List<Annos> annokset = new ArrayList<>();
 
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
             // tee kysely
             PreparedStatement stmt
-                    = conn.prepareStatement("SELECT id, nimi FROM Huonekalu");
+                    = conn.prepareStatement("SELECT id, nimi FROM Annos");
             ResultSet tulos = stmt.executeQuery();
 
             // käsittele kyselyn tulokset
             while (tulos.next()) {
-                huonekalut.add(new Huonekalu(tulos.getInt("id"), tulos.getString("nimi")));
+                annokset.add(new Annos(tulos.getInt("id"), tulos.getString("nimi")));
                 System.out.println(tulos.getString("nimi"));
             }
             // sulje yhteys tietokantaan
@@ -42,47 +42,73 @@ public class Main {
 
             HashMap map = new HashMap<>();
 
-            map.put("lista", huonekalut);
+            map.put("lista", annokset);
 
             return new ModelAndView(map, "index");
         }, new ThymeleafTemplateEngine());
-
-        Spark.post("/add", (req, res) -> {
-            // avaa yhteys tietokantaan
+        
+        
+        
+        Spark.post("/ainesosat/:id", (req, res) -> {
+            List<AnnosAinesosa> ainekset = new ArrayList<>();
+            
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
 
             // tee kysely
             PreparedStatement stmt
-                    = conn.prepareStatement("INSERT INTO Huonekalu (nimi) VALUES (?)");
-            stmt.setString(1, req.queryParams("huonekalu"));
+                    = conn.prepareStatement("SELECT * FROM AnnosAinesosa WHERE annos_id = ?");
+            stmt.setString(1, req.queryParams(":id"));
+            ResultSet tulos = stmt.executeQuery();
+            
+            while (tulos.next()) {
+                ainekset.add(new AnnosAinesosa(tulos.getInt("annos_id"), tulos.getInt("ainesosa_id"), tulos.getString("nimi")));
+                System.out.println(tulos.getString("nimi"));
+            }
+            
+            HashMap map = new HashMap<>();
+
+            map.put("lista", ainekset);
+
+            return new ModelAndView(map, "index");
+        });
+        
+        
+        Spark.post("/add", (req, res) -> {
+            // avaa yhteys tietokantaan
+            Connection conn
+                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
+
+            // tee kysely
+            PreparedStatement stmt
+                    = conn.prepareStatement("INSERT INTO Annos (nimi) VALUES (?)");
+            stmt.setString(1, req.queryParams("annos"));
 
             stmt.executeUpdate();
             System.out.println("Lisätty!");
-
-            // sulje yhteys tietokantaan
+            
             conn.close();
 
             res.redirect("/");
             return "";
         });
-
+        
+        
         Spark.post("/delete/:id", (req, res) -> {
             // avaa yhteys tietokantaan
             Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
 
             // tee kysely
             String kysely = req.params(":id");
             
             PreparedStatement stmt
-            = conn.prepareStatement("DELETE FROM Huonekalu WHERE id = " + kysely + "");
-//////            stmt.setInt(1, Integer.parseInt(kysely));
+            = conn.prepareStatement("DELETE FROM Annos WHERE id = ?");
+            stmt.setInt(1, Integer.parseInt(kysely));
 
             stmt.executeUpdate();
             System.out.println("Poistettu!");
-
-            // sulje yhteys tietokantaan
+            
             conn.close();
 
             res.redirect("/");
@@ -98,7 +124,7 @@ public class Main {
         
         System.out.println("Connected to the PostgreSQL server successfully.");
 
-        return DriverManager.getConnection("jdbc:sqlite:huonekalut.db");
+        return DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
     }
 
 }

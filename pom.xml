@@ -6,8 +6,8 @@
     
     <modelVersion>4.0.0</modelVersion>
     <groupId>tikape</groupId>
-    <name>Osa05_01.SQLInjektio</name>
-    <artifactId>Osa05_01.SQLInjektio</artifactId>
+    <name>OmaSovellus</name>
+    <artifactId>OmaSo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     

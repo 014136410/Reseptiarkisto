@@ -2,32 +2,39 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Huonekalut</title>
+        <title>Reseptiarkisto</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Huonekalut</h1>
+        <h1>Reseptiarkisto</h1>
 
         <p>
-            Huonekalut nuo hienoja ovat, voi veljet, onpa ne somat.
+            Hae tästä arkistosta löytyvät annokset!
         </p>
 
         <ul>
-            <li th:each="arvo : ${lista}">
-                <span th:text="${arvo.id}">id</span>
-                <span th:text="${arvo.nimi}">nimi</span>
-
-                <form method="POST" th:action="@{~/delete/{arvoID}(arvoID=${arvo.id})}">><input type="submit" value="Poista"/>
+            <li th:each="annos : ${lista}">
+                <span th:text="${annos.id}">id</span>
+                <span th:text="${annos.nimi}">nimi</span>
+                
+                <form method="POST" th:action="@{~/ainesosat/{annosID}(annosID=${annos.id})}">><input type="submit" value="Näytä"/>
+                </form>
+                <form method="POST" th:action="@{~/delete/{annosID}(annosID=${annos.id})}">><input type="submit" value="Poista"/>
                 </form>
             </li>
         </ul>
 
-        <form method="POST" action="/add">
-            <input type="text" name="huonekalu"/>
+        <form method="POST" action="/search">
+            <input type="text" name="annos"/>
             <input type="submit"/>
-        </form>
-        
+        </form>      
+
+        <form method="POST" action="/add">
+            <input type="text" name="annos"/>
+            <input type="submit"/>
+        </form>  
+
         
     </body>
 
