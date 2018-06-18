@@ -1,11 +1,11 @@
-package omasovellus;
+package java.reseptiarkisto;
 
-public class Ainesosa {
+public class Annos {
 
     int id;
     String nimi;
 
-    public Ainesosa(int id, String nimi) {
+    public Annos(int id, String nimi) {
         this.id = id;
         this.nimi = nimi;
     }

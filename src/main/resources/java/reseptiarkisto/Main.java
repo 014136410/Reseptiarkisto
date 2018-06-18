@@ -1,4 +1,4 @@
-package Reseptiarkisto;
+package java.reseptiarkisto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

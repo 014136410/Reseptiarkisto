@@ -14,9 +14,9 @@
         </p>
 
         <ul>
-            <li th:each="annos : ${lista}">
-                <span th:text="${annos.id}">id</span>
-                <span th:text="${annos.nimi}">nimi</span>
+            <li th:each="annosAinesosa : ${lista}">
+                <span th:text="${annosAinesosa.id}">id</span>
+                <span th:text="${annosAinesosa.nimi}">nimi</span>
                 
                 <form method="POST" th:action="@{~/ainesosat/{annosID}(annosID=${annos.id})}">><input type="submit" value="Näytä"/>
                 </form>
@@ -25,15 +25,11 @@
             </li>
         </ul>
 
-        <form method="POST" action="/search">
-            <input type="text" name="annos"/>
-            <input type="submit" value="Hae resepti"/>
-        </form>      
-
-        <form method="POST" action="/add">
-            <input type="text" name="annos"/>
-            <input type="submit" value="Lisää resepti"/>
-        </form>  
+        <ul>
+            <li>
+                <a href="@{~/)">Smoothielistaukseen</a>
+            </li>
+        </ul>
 
         
     </body>

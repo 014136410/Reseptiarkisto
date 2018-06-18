@@ -1,4 +1,4 @@
-package omasovellus;
+package java.reseptiarkisto;
 
 import static java.util.Collections.list;
 
