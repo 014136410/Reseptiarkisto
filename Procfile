@@ -1,1 +1,1 @@
-web:    java -cp target/classes:target/dependency/* java.reseptiarkisto.Main
+web:    java -cp target/classes:target/dependency/* reseptiarkisto.Main
