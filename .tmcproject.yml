@@ -1,0 +1,2 @@
+# The extra student file is a temporary fix for Windows users with tmcbeans < 1.1.8
+extra_student_files: ['huonekalut.db', 'huonekalut.db']
