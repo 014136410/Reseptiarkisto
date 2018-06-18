@@ -1,4 +1,4 @@
-package java.reseptiarkisto;
+package reseptiarkisto;
 
 import static java.util.Collections.list;
 

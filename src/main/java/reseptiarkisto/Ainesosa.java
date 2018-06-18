@@ -1,4 +1,4 @@
-package java.reseptiarkisto;
+package reseptiarkisto;
 
 public class Ainesosa {
 
