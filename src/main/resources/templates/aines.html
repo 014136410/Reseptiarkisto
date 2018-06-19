@@ -14,6 +14,7 @@
         <ul>
             <li th:each="annosAinesosa : ${ainekset}">
                 <span th:text="${annosAinesosa.ainesosaId}">id</span>
+                <span th:text="${ainesosa.nimi(ainesosa.id=${annosAinesosa.ainesosaId})}">nimi</span>
                 <span th:text="${annosAinesosa.maara}">maara</span>
                 
             </li>
@@ -24,7 +25,7 @@
 
         <ul>
             <li>
-                <a href="@{https://glacial-oasis-59643.herokuapp.com/annokset)">Takaisin annoslistaan</a>
+                <a href="{https://glacial-oasis-59643.herokuapp.com/annokset)">Takaisin annoslistaan</a>
             </li>
         </ul>
 
