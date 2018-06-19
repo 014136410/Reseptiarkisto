@@ -84,7 +84,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-        Spark.get("/ainekset/", (req, res) -> {
+        Spark.get("/ainekset/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             List<AnnosAinesosa> ainelista = new ArrayList<AnnosAinesosa>();
             List<Aines> aineet = new ArrayList<Aines>();
