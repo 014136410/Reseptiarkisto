@@ -2,8 +2,6 @@ package reseptiarkisto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +9,6 @@ import reseptiarkisto.dao.AinesosaDao;
 import reseptiarkisto.dao.AnnosAinesosaDao;
 import reseptiarkisto.dao.AnnosDao;
 import reseptiarkisto.database.Database;
-import reseptiarkisto.AnnosAinesosa;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -44,6 +41,8 @@ public class Main {
             Annos annos = new Annos(-1, req.queryParams("nimi"));
             annokset.saveOrUpdate(annos);
             System.out.println(annos.getNimi());
+            
+            System.out.println("Lisätty!");
 
             res.redirect("/annokset");
             return "";
@@ -54,7 +53,7 @@ public class Main {
             String kysely = req.params(":id");
             annokset.delete(Integer.parseInt(kysely));
 
-            System.out.println("poistettu!");
+            System.out.println("Poistettu!");
             
             res.redirect("/annokset");
             return "";
@@ -80,12 +79,6 @@ public class Main {
             }
             
             map.put("ainekset", aineet);
-            
-//            for (AnnosAinesosa aaa : ainelista) {
-//                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
-//                String nimi = n.getNimi();
-//                map.put(aaa.ainesosaId(), nimi);
-//            }
 
             return new ModelAndView(map, "aines");
         }, new ThymeleafTemplateEngine());

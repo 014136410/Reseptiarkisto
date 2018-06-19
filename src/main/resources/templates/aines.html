@@ -19,14 +19,17 @@
             </li>
         </ul>
         
+        <form method="POST" action="{/ainekset/{annosID}/lisaa(annosID=${annos.id})}">
+            <input type="text" name="aines"/>
+            <input type="submit" value="Lisää ainesosa"/>
+        </form>  
+        
         <form method="POST" th:action="@{~/delete/{annosID}(annosID=${annos.id})}">><input type="submit" value="Poista"/>
         </form>
 
-        <ul>
-            <li>
-                <a href="{https://glacial-oasis-59643.herokuapp.com/annokset}">Takaisin annoslistaan</a>
-            </li>
-        </ul>
+        
+        <a href="{~/annokset}">Takaisin annoslistaan</a>
+        
 
         
     </body>
