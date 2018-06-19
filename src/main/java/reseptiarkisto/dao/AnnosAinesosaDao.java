@@ -1,6 +1,7 @@
 package reseptiarkisto.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
     }
 
     public AnnosAinesosa findOne(Integer annos, Integer ainesosa) throws SQLException {
-        Connection conn = database.getConnection();
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM AnnosAinesosa"
                 + " WHERE annos_id = ? AND ainesosa_id = ?");
         stmt.setInt(1, annos);
@@ -43,7 +44,7 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
     public List<AnnosAinesosa> etsiAnnoksella(Integer annos) throws SQLException {
         List<AnnosAinesosa> lista = new ArrayList<>();
         
-        Connection conn = database.getConnection();
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM AnnosAinesosa WHERE annos_id = ?");
         stmt.setInt(1, annos);
         
@@ -69,7 +70,7 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
     public List<AnnosAinesosa> findAll() throws SQLException {
         List<AnnosAinesosa> lista = new ArrayList<>();
         
-        Connection conn = database.getConnection();
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM AnnosAinesosa");
         
         ResultSet rs = stmt.executeQuery();
@@ -110,7 +111,7 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
     
     private AnnosAinesosa save(AnnosAinesosa a) throws SQLException {
 
-        Connection conn = database.getConnection();
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
         
         PreparedStatement stmt = conn.prepareStatement(
                  "INSERT INTO AnnosAinesosa (annos_id, ainesosa_id, maara) VALUES (?, ?, ?)");
@@ -141,7 +142,7 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
 
     private AnnosAinesosa update(AnnosAinesosa a) throws SQLException {
 
-        Connection conn = database.getConnection();
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
         PreparedStatement stmt = conn.prepareStatement("UPDATE AnnosAinesosa SET maara = ?");
         stmt.setString(1, a.maara());
 
@@ -155,7 +156,7 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
     
 
     public void delete(Integer annos, Integer ainesosa) throws SQLException {
-        Connection conn = database.getConnection();
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM AnnosAinesosa"
                 + " WHERE annos_id = ? AND ainesosa_id = ?");
         stmt.setInt(1, annos);

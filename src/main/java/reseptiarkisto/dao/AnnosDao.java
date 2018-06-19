@@ -1,6 +1,7 @@
 package reseptiarkisto.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +27,8 @@ public class AnnosDao implements Dao<Annos, Integer> {
     public List<Annos> findAll() throws SQLException {
         List<Annos> users = new ArrayList<>();
 
-        try (Connection conn = database.getConnection();
-                ResultSet result = conn.prepareStatement("SELECT id, nimi FROM Annos").executeQuery()) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db")) {
+            ResultSet result = conn.prepareStatement("SELECT id, nimi FROM Annos").executeQuery();
 
             while (result.next()) {
                 users.add(new Annos(result.getInt("id"), result.getString("nimi")));
@@ -45,7 +46,7 @@ public class AnnosDao implements Dao<Annos, Integer> {
 //            return byName;
 //        }
 
-        try (Connection conn = database.getConnection()) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db")) {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Annos (nimi) VALUES (?)");
             stmt.setString(1, object.getNimi());
             stmt.executeUpdate();
@@ -56,7 +57,7 @@ public class AnnosDao implements Dao<Annos, Integer> {
     }
 
     private Annos findByName(String name) throws SQLException {
-        try (Connection conn = database.getConnection()) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db")) {
             PreparedStatement stmt = conn.prepareStatement("SELECT id, nimi FROM Annos WHERE nimi = ?");
             stmt.setString(1, name);
 
@@ -71,7 +72,7 @@ public class AnnosDao implements Dao<Annos, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        try (Connection conn = database.getConnection()) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db")) {
             PreparedStatement stmt
             = conn.prepareStatement("DELETE FROM Annos WHERE id = ?");
             stmt.setInt(1, key);
