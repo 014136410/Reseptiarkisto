@@ -7,6 +7,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import reseptiarkisto.dao.AinesosaDao;
+import reseptiarkisto.dao.AnnosAinesosaDao;
+import reseptiarkisto.dao.AnnosDao;
+import reseptiarkisto.database.Database;
+import reseptiarkisto.AnnosAinesosa;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -18,102 +23,73 @@ public class Main {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
         
+        Database database = new Database("jdbc:sqlite:reseptiarkisto.db");
+        AnnosDao annokset = new AnnosDao(database);
+        AinesosaDao ainesosat = new AinesosaDao(database);
+        AnnosAinesosaDao ainekset = new AnnosAinesosaDao(database);
+        
         System.out.println("Hello world!");
 
-        Spark.get("/", (req, res) -> {
-
-            List<Annos> annokset = new ArrayList<>();
-
-            // avaa yhteys tietokantaan
-            Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
-            // tee kysely
-            PreparedStatement stmt
-                    = conn.prepareStatement("SELECT id, nimi FROM Annos");
-            ResultSet tulos = stmt.executeQuery();
-
-            // käsittele kyselyn tulokset
-            while (tulos.next()) {
-                annokset.add(new Annos(tulos.getInt("id"), tulos.getString("nimi")));
-                System.out.println(tulos.getString("nimi"));
-            }
-            // sulje yhteys tietokantaan
-            conn.close();
-
+        
+        Spark.get("/annokset", (req, res) -> {  
+            
             HashMap map = new HashMap<>();
+            map.put("annokset", annokset.findAll());
 
-            map.put("lista", annokset);
-
-            return new ModelAndView(map, "index");
+            return new ModelAndView(map, "annos");
         }, new ThymeleafTemplateEngine());
         
         
-        
-        Spark.post("/ainesosat/:id", (req, res) -> {
-            List<AnnosAinesosa> ainekset = new ArrayList<>();
-            
-            Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
+        Spark.post("/annokset", (req, res) -> {
+            Annos annos = new Annos(-1, req.queryParams("nimi"));
+            annokset.saveOrUpdate(annos);
 
-            // tee kysely
-            PreparedStatement stmt
-                    = conn.prepareStatement("SELECT * FROM AnnosAinesosa WHERE annos_id = ?");
-            stmt.setString(1, req.queryParams(":id"));
-            ResultSet tulos = stmt.executeQuery();
-            
-            while (tulos.next()) {
-                ainekset.add(new AnnosAinesosa(tulos.getInt("annos_id"), tulos.getInt("ainesosa_id"), tulos.getString("nimi")));
-                System.out.println(tulos.getString("nimi"));
-            }
-            
-            HashMap map = new HashMap<>();
-
-            map.put("lista", ainekset);
-
-            return new ModelAndView(map, "index");
+            res.redirect("/annokset");
+            return "";
         });
         
         
-        Spark.post("/add", (req, res) -> {
-            // avaa yhteys tietokantaan
-            Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
+        Spark.post("/annokset/delete/:id", (req, res) -> {
+            String kysely = req.params(":id");
+            annokset.delete(Integer.parseInt(kysely));
 
-            // tee kysely
-            PreparedStatement stmt
-                    = conn.prepareStatement("INSERT INTO Annos (nimi) VALUES (?)");
-            stmt.setString(1, req.queryParams("annos"));
+            System.out.println("poistettu!");
+            
+            res.redirect("/annokset");
+            return "";
+        });
+        
+        
+        Spark.get("/ainekset/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            
+            Integer id = Integer.parseInt(req.params(":id"));
+            Annos a = new Annos(id, annokset.findOne(id).nimi);
+            
+            map.put("annos", a);
+            map.put("ainekset", ainekset.etsiAnnoksella(id));
 
-            stmt.executeUpdate();
+            return new ModelAndView(map, "ainekset");
+        }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.post("/ainekset/:id", (req, res) -> {
+            Integer id = Integer.parseInt(req.params(":id"));
+            Ainesosa a = new Ainesosa(-1, req.queryParams("nimi"));
+            String maara = req.queryParams("maara");
+            
+            ainesosat.saveOrUpdate(a);
+            
+            Ainesosa b = ainesosat.findByName(a.nimi);
+            AnnosAinesosa aa = new AnnosAinesosa(id, b.getId(), maara);
+            ainekset.saveOrUpdate(aa);
+            
             System.out.println("Lisätty!");
             
-            conn.close();
-
-            res.redirect("/");
+            res.redirect("/ainekset");
             return "";
         });
         
-        
-        Spark.post("/delete/:id", (req, res) -> {
-            // avaa yhteys tietokantaan
-            Connection conn
-                    = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
-
-            // tee kysely
-            String kysely = req.params(":id");
-            
-            PreparedStatement stmt
-            = conn.prepareStatement("DELETE FROM Annos WHERE id = ?");
-            stmt.setInt(1, Integer.parseInt(kysely));
-
-            stmt.executeUpdate();
-            System.out.println("Poistettu!");
-            
-            conn.close();
-
-            res.redirect("/");
-            return "";
-        });
     }
     
     public static Connection getConnection() throws Exception {

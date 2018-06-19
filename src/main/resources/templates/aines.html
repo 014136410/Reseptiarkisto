@@ -7,27 +7,24 @@
     </head>
 
     <body>
-        <h1>Reseptiarkisto</h1>
-
-        <p>
-            Hae tästä arkistosta löytyvät annokset!
-        </p>
+        <h1>Ainekset</h1>
+        
+        <h1 th:text="${annos.nimi}">Annos</h1>
 
         <ul>
             <li th:each="annosAinesosa : ${lista}">
                 <span th:text="${annosAinesosa.id}">id</span>
                 <span th:text="${annosAinesosa.nimi}">nimi</span>
                 
-                <form method="POST" th:action="@{~/ainesosat/{annosID}(annosID=${annos.id})}">><input type="submit" value="Näytä"/>
-                </form>
-                <form method="POST" th:action="@{~/delete/{annosID}(annosID=${annos.id})}">><input type="submit" value="Poista"/>
-                </form>
             </li>
         </ul>
+        
+        <form method="POST" th:action="@{~/delete/{annosID}(annosID=${annos.id})}">><input type="submit" value="Poista"/>
+        </form>
 
         <ul>
             <li>
-                <a href="@{~/)">Smoothielistaukseen</a>
+                <a href="@{~/annokset/)">Takaisin annoslistaan</a>
             </li>
         </ul>
 
