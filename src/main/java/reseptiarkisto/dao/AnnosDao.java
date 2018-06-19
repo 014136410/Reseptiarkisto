@@ -40,11 +40,11 @@ public class AnnosDao implements Dao<Annos, Integer> {
 
     @Override
     public Annos saveOrUpdate(Annos object) throws SQLException {
-//        Annos byName = findByName(object.getNimi());
-//
-//        if (byName != null) {
-//            return byName;
-//        }
+        Annos byName = findByName(object.getNimi());
+
+        if (byName != null) {
+            return byName;
+        }
 
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db")) {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Annos (nimi) VALUES (?)");

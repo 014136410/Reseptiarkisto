@@ -38,7 +38,7 @@ public class Main {
         
         
         Spark.post("/annokset/lisaa", (req, res) -> {
-            Annos annos = new Annos(-1, req.queryParams("nimi"));
+            Annos annos = new Annos(-1, req.queryParams("annos"));
             annokset.saveOrUpdate(annos);
             System.out.println(annos.getNimi());
             
