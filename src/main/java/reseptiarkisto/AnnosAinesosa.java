@@ -7,6 +7,7 @@ public class AnnosAinesosa {
     int annos_id;
     int ainesosa_id;
     String maara;
+    Ainesosa aines;
 
     public AnnosAinesosa(int annos_id, int ainesosa_id, String maara) {
         this.annos_id = annos_id;
@@ -24,5 +25,9 @@ public class AnnosAinesosa {
     
     public String maara() {
         return this.maara;
+    }
+    
+    public String toString() {
+        return this.aines.getNimi() + ": " + this.maara;
     }
 }

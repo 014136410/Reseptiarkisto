@@ -13,9 +13,7 @@
 
         <ul>
             <li th:each="annosAinesosa : ${ainekset}">
-                <span th:text="${annosAinesosa.ainesosaId}">id</span>
-                <span th:text="${ainesosa.nimi}">nimi</span>
-                <span th:text="${annosAinesosa.maara}">maara</span>
+                <span th:text="${annosAinesosa.toString}">toString</span>
                 
             </li>
         </ul>
