@@ -71,14 +71,13 @@ public class Main {
             
             ainelista = ainekset.etsiAnnoksella(id);
             
-//            List<String> aineet = new ArrayList<String>();
-//            
-//            for (AnnosAinesosa aaa : ainelista) {
-//                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
-//                aineet.add(n.getNimi());
-//            }
-            
             map.put("ainekset", ainelista);
+            
+            for (AnnosAinesosa aaa : ainelista) {
+                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
+                String nimi = n.getNimi();
+                map.put(aaa.ainesosaId(), nimi);
+            }
 
             return new ModelAndView(map, "aines");
         }, new ThymeleafTemplateEngine());
