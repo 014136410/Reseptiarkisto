@@ -63,6 +63,7 @@ public class Main {
         Spark.get("/ainekset/:id", (req, res) -> {
             HashMap map = new HashMap<>();
             List<AnnosAinesosa> ainelista = new ArrayList<AnnosAinesosa>();
+            List<Aines> aineet = new ArrayList<Aines>();
             
             Integer id = Integer.parseInt(req.params(":id"));
             Annos a = new Annos(id, annokset.findOne(id).nimi);
@@ -71,7 +72,12 @@ public class Main {
             
             ainelista = ainekset.etsiAnnoksella(id);
             
-            map.put("ainekset", ainelista);
+            for(AnnosAinesosa aa : ainelista) {
+                Aines aines = new Aines(ainesosat.findOne(aa.ainesosa_id).getNimi(), aa.maara());
+                aineet.add(aines);
+            }
+            
+            map.put("ainekset", aineet);
             
 //            for (AnnosAinesosa aaa : ainelista) {
 //                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
