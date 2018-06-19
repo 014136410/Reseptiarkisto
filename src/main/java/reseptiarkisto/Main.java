@@ -69,8 +69,10 @@ public class Main {
             
             map.put("annos", a);
             
+            ainelista = ainekset.etsiAnnoksella(id);
+            
 //            List<String> aineet = new ArrayList<String>();
-//            ainelista = ainekset.etsiAnnoksella(id);
+//            
 //            for (AnnosAinesosa aaa : ainelista) {
 //                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
 //                aineet.add(n.getNimi());
