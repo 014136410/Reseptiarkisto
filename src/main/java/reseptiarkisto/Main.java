@@ -104,7 +104,7 @@ public class Main {
             
             map.put("ainekset", aineet);
 
-            return new ModelAndView(map, "aines");
+            return new ModelAndView(map, "annosaines");
         }, new ThymeleafTemplateEngine());
         
         
