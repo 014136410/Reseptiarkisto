@@ -40,7 +40,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-        Spark.post("/annokset", (req, res) -> {
+        Spark.post("/annokset/lisaa", (req, res) -> {
             Annos annos = new Annos(-1, req.queryParams("nimi"));
             annokset.saveOrUpdate(annos);
 
