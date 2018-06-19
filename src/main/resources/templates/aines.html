@@ -9,11 +9,11 @@
     <body>
         <h1>Ainekset</h1>
         
-        <h1 th:text="${annos.nimi}">Annos</h1>
+        <h2 th:text="${annos.nimi}">Annos</h2>
 
         <ul>
             <li th:each="annosAinesosa : ${ainekset}">
-                <span th:text="${annosAinesosa.ainesosa_id}">nimi</span>
+                <span th:text="${annosAinesosa.ainesosaId}">id</span>
                 <span th:text="${annosAinesosa.maara}">maara</span>
                 
             </li>
