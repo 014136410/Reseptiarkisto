@@ -63,7 +63,27 @@ public class AnnosAinesosaDao implements Dao<AnnosAinesosa, Integer> {
     
     }
     
+    public List<AnnosAinesosa> etsiAinesosalla(Integer ainesosa) throws SQLException {
+        List<AnnosAinesosa> lista = new ArrayList<>();
+        
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:reseptiarkisto.db");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM AnnosAinesosa WHERE ainesosa_id = ?");
+        stmt.setInt(1, ainesosa);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+             AnnosAinesosa a = new AnnosAinesosa(rs.getInt("annos_id"), rs.getInt("ainesosa_id"), rs.getString("maara"));
+             lista.add(a);
+        }
+
+        stmt.close();
+        rs.close();
+        conn.close();
+
+        return lista;
     
+    }
     
     
     @Override

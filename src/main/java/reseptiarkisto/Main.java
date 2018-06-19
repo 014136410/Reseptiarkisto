@@ -60,7 +60,31 @@ public class Main {
         });
         
         
-        Spark.get("/ainekset/:id", (req, res) -> {
+        Spark.get("/annokset/:id", (req, res) -> {
+            HashMap map = new HashMap<>();
+            List<Annos> annoslista = new ArrayList<Annos>();
+            List<AnnosAinesosa> annosaineslista = new ArrayList<AnnosAinesosa>();
+            
+            Integer id = Integer.parseInt(req.params(":id"));
+            Ainesosa a = new Ainesosa(id, ainesosat.findOne(id).nimi);
+            
+            map.put("aines", a);
+            
+            annosaineslista = ainekset.etsiAinesosalla(id);
+            
+            for(AnnosAinesosa aa : annosaineslista) {
+                Annos annos = new Annos(aa.annosId(), annokset.findOne(aa.annos_id).getNimi());
+                annoslista.add(annos);
+                System.out.println(annos.getNimi());
+            }
+            
+            map.put("ainekset", annoslista);
+
+            return new ModelAndView(map, "aines");
+        }, new ThymeleafTemplateEngine());
+        
+        
+        Spark.get("/ainekset/", (req, res) -> {
             HashMap map = new HashMap<>();
             List<AnnosAinesosa> ainelista = new ArrayList<AnnosAinesosa>();
             List<Aines> aineet = new ArrayList<Aines>();
