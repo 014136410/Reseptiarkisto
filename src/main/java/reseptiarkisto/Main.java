@@ -73,11 +73,11 @@ public class Main {
             
             map.put("ainekset", ainelista);
             
-            for (AnnosAinesosa aaa : ainelista) {
-                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
-                String nimi = n.getNimi();
-                map.put(aaa.ainesosaId(), nimi);
-            }
+//            for (AnnosAinesosa aaa : ainelista) {
+//                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
+//                String nimi = n.getNimi();
+//                map.put(aaa.ainesosaId(), nimi);
+//            }
 
             return new ModelAndView(map, "aines");
         }, new ThymeleafTemplateEngine());
