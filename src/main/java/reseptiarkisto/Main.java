@@ -62,12 +62,21 @@ public class Main {
         
         Spark.get("/ainekset/:id", (req, res) -> {
             HashMap map = new HashMap<>();
+            List<AnnosAinesosa> ainelista = new ArrayList<AnnosAinesosa>();
             
             Integer id = Integer.parseInt(req.params(":id"));
             Annos a = new Annos(id, annokset.findOne(id).nimi);
             
             map.put("annos", a);
-            map.put("ainekset", ainekset.etsiAnnoksella(id));
+            
+//            List<String> aineet = new ArrayList<String>();
+//            ainelista = ainekset.etsiAnnoksella(id);
+//            for (AnnosAinesosa aaa : ainelista) {
+//                Ainesosa n = ainesosat.findOne(aaa.ainesosaId());
+//                aineet.add(n.getNimi());
+//            }
+            
+            map.put("ainekset", ainelista);
 
             return new ModelAndView(map, "ainekset");
         }, new ThymeleafTemplateEngine());

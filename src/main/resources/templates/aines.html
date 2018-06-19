@@ -12,9 +12,9 @@
         <h1 th:text="${annos.nimi}">Annos</h1>
 
         <ul>
-            <li th:each="annosAinesosa : ${lista}">
-                <span th:text="${annosAinesosa.id}">id</span>
-                <span th:text="${annosAinesosa.nimi}">nimi</span>
+            <li th:each="annosAinesosa : ${ainekset}">
+                <span th:text="${annosAinesosa.ainesosa_id}">nimi</span>
+                <span th:text="${annosAinesosa.maara}">maara</span>
                 
             </li>
         </ul>
