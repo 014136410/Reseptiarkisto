@@ -84,7 +84,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-        Spark.post("/ainekset/:id", (req, res) -> {
+        Spark.post("/ainekset/:id/lisaa", (req, res) -> {
             Integer id = Integer.parseInt(req.params(":id"));
             Ainesosa a = new Ainesosa(-1, req.queryParams("nimi"));
             String maara = req.queryParams("maara");
