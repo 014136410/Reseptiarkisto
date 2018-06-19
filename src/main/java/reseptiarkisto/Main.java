@@ -43,6 +43,7 @@ public class Main {
         Spark.post("/annokset/lisaa", (req, res) -> {
             Annos annos = new Annos(-1, req.queryParams("nimi"));
             annokset.saveOrUpdate(annos);
+            System.out.println(annos.getNimi());
 
             res.redirect("/annokset");
             return "";
@@ -75,6 +76,7 @@ public class Main {
             for(AnnosAinesosa aa : ainelista) {
                 Aines aines = new Aines(ainesosat.findOne(aa.ainesosa_id).getNimi(), aa.maara());
                 aineet.add(aines);
+                System.out.println(aines.nimi());
             }
             
             map.put("ainekset", aineet);

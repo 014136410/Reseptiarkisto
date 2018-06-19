@@ -13,7 +13,8 @@
 
         <ul>
             <li th:each="aines : ${aineet}">
-                <span th:text="${aines.toString}">Aines</span>
+                <span th:text="${aines.nimi}">nimi</span>
+                <span th:text="${aines.maara}">maara</span>
                 
             </li>
         </ul>
@@ -23,7 +24,7 @@
 
         <ul>
             <li>
-                <a href="{https://glacial-oasis-59643.herokuapp.com/annokset)">Takaisin annoslistaan</a>
+                <a href="{https://glacial-oasis-59643.herokuapp.com/annokset}">Takaisin annoslistaan</a>
             </li>
         </ul>
 
