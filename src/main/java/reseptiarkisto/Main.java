@@ -78,7 +78,7 @@ public class Main {
             
             map.put("ainekset", ainelista);
 
-            return new ModelAndView(map, "ainekset");
+            return new ModelAndView(map, "aines");
         }, new ThymeleafTemplateEngine());
         
         
